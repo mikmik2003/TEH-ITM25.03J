@@ -41,8 +41,17 @@ def relationship_status(from_member, to_member, social_graph):
     '''
     # Replace `pass` with your code.
     # Stay within the function. Only use the parameters as input. The function should return your answer.
-    pass
+    from_member_following = social_graph.get(from_member, {}).get("following", [])
+    to_member_following = social_graph.get(to_member, {}).get("following", [])
 
+    if from_member in to_member_following and to_member in from_member_following:
+        return "friends"
+    elif from_member in to_member_following:
+        return "followed by"
+    elif to_member in from_member_following:
+        return "follower"
+    else:
+        return "no relationship"
 
 def tic_tac_toe(board):
     '''Tic Tac Toe.
@@ -70,7 +79,23 @@ def tic_tac_toe(board):
     '''
     # Replace `pass` with your code.
     # Stay within the function. Only use the parameters as input. The function should return your answer.
-    pass
+    size = len(board)
+
+    for row in board:
+        if len(set(row)) == 1 and row[0] != '':
+            return row[0]
+
+    for col in range(size):
+        if len(set(board[row][col] for row in range(size))) == 1 and board[0][col] != '':
+            return board[0][col]
+
+    if len(set(board[i][i] for i in range(size))) == 1 and board[0][0] != '':
+        return board[0][0]
+
+    if len(set(board[i][size - 1 - i] for i in range(size))) == 1 and board[0][size - 1] != '':
+        return board[0][size - 1]
+
+    return "NO WINNER"
 
 def eta(first_stop, second_stop, route_map):
     '''ETA.
@@ -103,4 +128,11 @@ def eta(first_stop, second_stop, route_map):
     '''
     # Replace `pass` with your code.
     # Stay within the function. Only use the parameters as input. The function should return your answer.
-    pass
+    if (first_stop, second_stop) in route_map:
+        return route_map[(first_stop, second_stop)]['travel_time_mins']
+    path = find_path(first_stop, second_stop, route_map)
+    if path:
+        total_travel_time = sum(route_map[leg]['travel_time_mins'] for leg in path)
+        return total_travel_time
+    else:
+        return -1
