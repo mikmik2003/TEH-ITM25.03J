@@ -259,3 +259,4 @@ def scytale_decipher(message, shift):
             if i < len(column):
                 deciphered_message += column[i]
     return deciphered_message
+    #ChatGPT was used
