@@ -90,6 +90,7 @@ def tic_tac_toe(board):
     if len(set(board[i][size - 1 - i] for i in range(size))) == 1 and board[0][size - 1] != '':
         return board[0][size - 1]
     return "NO WINNER"
+    #ChatGPT was used
 
 def eta(first_stop, second_stop, route_map):
     '''ETA.
