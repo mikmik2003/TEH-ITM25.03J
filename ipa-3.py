@@ -78,7 +78,7 @@ def tic_tac_toe(board):
     '''
     # Replace `pass` with your code.
     # Stay within the function. Only use the parameters as input. The function should return your answer.
-   size = len(board)
+    size = len(board)
     for row in board:
         if len(set(row)) == 1 and row[0] != '':
             return row[0]
