@@ -123,11 +123,27 @@ def eta(first_stop, second_stop, route_map):
     '''
     # Replace `pass` with your code.
     # Stay within the function. Only use the parameters as input. The function should return your answer.
-    if (first_stop, second_stop) in route_map:
-        return route_map[(first_stop, second_stop)]['travel_time_mins']
-    path = find_path(first_stop, second_stop, route_map)
-    if path:
-        total_travel_time = sum(route_map[leg]['travel_time_mins'] for leg in path)
-        return total_travel_time
-    else:
-        return -1
+    def find_path(current_stop, second_stop, route_map):
+        if current_stop == second_stop:
+            return [current_stop]
+    
+        for leg in route_map:
+            if leg[0] == current_stop:
+                next_stop = leg[1]
+                path = find_path(next_stop, second_stop, route_map)
+                if path:
+                    return [current_stop] + path
+    
+        return []
+    #chatgpt was used
+
+    def eta(first_stop, second_stop, route_map):
+        if (first_stop, second_stop) in route_map:
+            return route_map[(first_stop, second_stop)]['travel_time_mins']
+    
+        path = find_path(first_stop, second_stop, route_map)
+        if path:
+            total_travel_time = sum(route_map[leg]['travel_time_mins'] for leg in path)
+            return total_travel_time
+        else:
+            return -1
