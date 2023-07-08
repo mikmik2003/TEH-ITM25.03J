@@ -205,13 +205,11 @@ def scytale_cipher(message, shift):
     # Replace `pass` with your code.
     # Stay within the function. Only use the parameters as input. The function should return your answer.
     message_length = len(message)
-    if message_length % shift != 0:
-        underscores_needed = shift - (message_length % shift)
-        message += "_" * underscores_needed  
+    if len(message) % shift != 0:
+        message += "_" * (shift - len(message) % shift) 
     encoded_message = ""
     for i in range(len(message)):
-        index = (i // shift) + (message_length // shift) * (i % shift)
-        encoded_message += message[index]
+        encoded_message += message[(i // shift) + (len(message) // shift) * (i % shift)]
     return encoded_message
 
 def scytale_decipher(message, shift):
@@ -241,22 +239,19 @@ def scytale_decipher(message, shift):
     '''
     # Replace `pass` with your code.
     # Stay within the function. Only use the parameters as input. The function should return your answer.
-    num_columns = len(message) // shift
-    num_leftover = len(message) % shift
-    column_lengths = [num_columns] * shift
-    for i in range(num_leftover):
-        column_lengths[i] += 1
-    columns = [[] for _ in range(shift)]
+    num_rows = len(message) // shift
+    grid = [[''] * num_rows for _ in range(shift)]
+    
     index = 0
-    for column_length in column_lengths:
-        for _ in range(column_length):
-            columns[index].append(message[0])
-            message = message[1:]
-        index += 1
-    deciphered_message = ""
-    for i in range(num_columns + 1):
-        for column in columns:
-            if i < len(column):
-                deciphered_message += column[i]
-    return deciphered_message
+    for col in range(num_rows):
+        for row in range(shift):
+            grid[row][col] = message[index]
+            index += 1
+    
+    deciphered_message = ''
+    for row in range(shift):
+        for col in range(num_rows):
+            deciphered_message += grid[row][col]
+
+    return deciphered_message.rstrip('_')
     #ChatGPT was used
