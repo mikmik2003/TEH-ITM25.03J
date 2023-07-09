@@ -253,5 +253,8 @@ def scytale_decipher(message, shift):
         for col in range(num_rows):
             deciphered_message += grid[row][col]
 
-    return deciphered_message.rstrip('_')
+    num_missing_chars = len(message) - len(deciphered_message)
+    deciphered_message += '_' * num_missing_chars
+
+    return deciphered_message
     #ChatGPT was used
